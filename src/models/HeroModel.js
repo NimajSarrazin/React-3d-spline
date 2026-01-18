@@ -19,8 +19,10 @@ export const heroSubtitle = 'Web Sites';
 export const heroDescription = 
   'Transform your website with smooth animations and interactive elements. Create a stunning user experience with seamless transitions and engaging interactions.';
 
-// Button text
+// Button texts
 export const heroButtonText = 'Get Started';
+export const heroLinkButtonText = 'Learn More';
+export const heroDocumentationButtonText = 'Documentation';
 
 // Animation configuration constants
 export const ANIMATION_CONFIG = {

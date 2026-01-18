@@ -1,28 +1,42 @@
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { navbarData } from '../data/Nav';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const isActive = (href) => {
+    return location.pathname === href;
+  };
+
   return (
     <header className="flex items-center justify-between py-4 px-4 lg:px-20 relative">
-      <h1 className="text-3xl md:text-4xl lg:text-5xl font-light m-0">3DAnimate</h1>
+      <Link to="/" className="text-3xl md:text-4xl lg:text-5xl font-light m-0 hover:opacity-80 transition-opacity">
+        3DAnimate
+      </Link>
       
       {/* Desktop navigation */}
       <nav className="hidden md:flex items-center gap-8">
         {navbarData.map((item) => (
-          <a
+          <Link
             key={item.id}
-            href={item.href}
-            className="text-white hover:text-gray-300 transition-all duration-300 ease-in-out relative group"
+            to={item.href}
+            className={`transition-all duration-300 ease-in-out relative group ${
+              isActive(item.href) 
+                ? 'text-[#e99b63]' 
+                : 'text-white hover:text-gray-300'
+            }`}
           >
             {item.name}
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-300 transition-all duration-300 ease-in-out group-hover:w-full"></span>
-          </a>
+            <span className={`absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 ease-in-out ${
+              isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'
+            }`}></span>
+          </Link>
         ))}
       </nav>
 
@@ -57,14 +71,18 @@ const Header = () => {
       >
         <div className="flex flex-col items-start gap-6 pt-20 px-8">
           {navbarData.map((item) => (
-            <a
+            <Link
               key={item.id}
-              href={item.href}
+              to={item.href}
               onClick={() => setIsMenuOpen(false)}
-              className="text-white hover:text-gray-300 transition-all duration-300 ease-in-out text-lg w-full py-2 border-b border-gray-800 hover:border-gray-600"
+              className={`transition-all duration-300 ease-in-out text-lg w-full py-2 border-b ${
+                isActive(item.href)
+                  ? 'text-[#e99b63] border-gray-600'
+                  : 'text-white hover:text-gray-300 border-gray-800 hover:border-gray-600'
+              }`}
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
       </nav>
